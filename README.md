@@ -9,10 +9,13 @@
 * JUnit5
 
 ## 서비스 설명
-* 메뉴 생성 및 조회
+* 커피 메뉴 생성 및 조회
 * 주문 시 포인트로 결제
 * 주문이 완료되면 주문 내역을 전송
-* 주문 내역으로 인기 메뉴 조회
+* 특정 기간 내 인기 메뉴 조회
+
+## 도메인 설계
+<img width="800" alt="diagram" src="https://user-images.githubusercontent.com/45748683/196957133-7bb334fe-9a3c-49ec-a434-be15418aef2c.png">
 
 ## API
 
@@ -43,5 +46,6 @@
 
 - - -
 ## 학습 
-### Optional  
-https://onibmag.tistory.com/entry/%EC%9E%90%EB%B0%94-null-%EB%8C%80%EC%8B%A0-Optional-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+### Java
+* [Optional](https://onibmag.tistory.com/entry/%EC%9E%90%EB%B0%94-null-%EB%8C%80%EC%8B%A0-Optional-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
+)
