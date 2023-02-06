@@ -1,5 +1,9 @@
 # 커피 주문 서비스
 
+## 개발 목적 
+
+객체 지향 설계, Spring Boot, JPA, 테스트 코드, Kafka 개념 학습용 프로젝트
+
 ## 개발 환경
 * Java 11
 * Spring Boot 2.7.0
@@ -7,6 +11,7 @@
 * Gradle
 * JPA
 * JUnit5
+* kafka-clients
 
 ## 서비스 설명
 * 커피 메뉴 생성 및 조회
