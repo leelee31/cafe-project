@@ -24,6 +24,9 @@
 ## 도메인 설계
 <img width="800" alt="diagram" src="https://user-images.githubusercontent.com/45748683/196957133-7bb334fe-9a3c-49ec-a434-be15418aef2c.png">
 
+## 프로젝트 구조 
+<img width="170" alt="structure" src="https://user-images.githubusercontent.com/45748683/219075818-6571f853-98b6-4c3b-8d97-4ca13f0e52f3.png">
+
 ## API
 
 ### 메뉴 
@@ -45,3 +48,4 @@
 
 ### 인기 메뉴 목록 조회
 * GET /popular/menu
+
