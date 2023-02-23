@@ -4,7 +4,7 @@
 
 객체 지향 설계, Spring Boot, JPA, 테스트 코드 학습용 프로젝트
 
-[커피 주문 서비스를 객체 지향으로 설계해보기 with Java](https://onibmag.tistory.com/52)
+[자세한 내용을 적은 글](https://onibmag.tistory.com/52)
 
 ## 개발 환경
 * Java 11
