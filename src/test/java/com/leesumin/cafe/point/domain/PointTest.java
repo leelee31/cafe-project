@@ -1,6 +1,7 @@
 package com.leesumin.cafe.point.domain;
 
 import com.leesumin.cafe.customer.domain.Customer;
+import com.leesumin.cafe.exception.NotEnoughPointException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -65,6 +66,6 @@ class PointTest {
                 .amount(100)
                 .build();
 
-        assertThrows(IllegalArgumentException.class, () -> point.usePoint(100000));
+        assertThrows(NotEnoughPointException.class, () -> point.usePoint(100000));
     }
 }

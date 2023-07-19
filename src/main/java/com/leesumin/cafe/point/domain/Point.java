@@ -1,6 +1,8 @@
 package com.leesumin.cafe.point.domain;
 
 import com.leesumin.cafe.customer.domain.Customer;
+import com.leesumin.cafe.exception.ErrorEnum;
+import com.leesumin.cafe.exception.NotEnoughPointException;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,6 +43,6 @@ public class Point {
 
     private void checkEnoughPoint(Integer amount) {
         if(this.amount - amount < 0)
-            throw new IllegalArgumentException("사용할 포인트가 부족합니다.");
+            throw new NotEnoughPointException(ErrorEnum.REJECT_USE_POINT);
     }
 }
