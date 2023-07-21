@@ -14,8 +14,8 @@ public class GlobalExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NotEnoughPointException.class)
-    public ResponseEntity<ErrorResponse> notEnoughPointException(NotEnoughPointException e) {
-        logger.error(e.getError().getMessage());
+    public ResponseEntity<ErrorResponse> notEnoughPointException(CustomException e) {
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(e));
     }
 }
