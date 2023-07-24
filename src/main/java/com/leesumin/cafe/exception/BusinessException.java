@@ -1,9 +1,9 @@
 package com.leesumin.cafe.exception;
 
-public class CustomException extends RuntimeException {
+public class BusinessException extends RuntimeException {
     private ErrorEnum error;
 
-    public CustomException(ErrorEnum error) {
+    public BusinessException(ErrorEnum error) {
         super(error.getMessage());
         this.error = error;
     }

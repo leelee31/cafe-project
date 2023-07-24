@@ -12,7 +12,7 @@ public class ErrorResponse {
         this.errorMessage = errorMessage;
     }
 
-    public static ErrorResponse of(CustomException e) {
+    public static ErrorResponse of(BusinessException e) {
         return new ErrorResponse(e.getCode(), e.getMessage());
     }
 }
