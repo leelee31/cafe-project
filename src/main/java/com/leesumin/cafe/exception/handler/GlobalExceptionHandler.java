@@ -1,5 +1,8 @@
-package com.leesumin.cafe.exception;
+package com.leesumin.cafe.exception.handler;
 
+import com.leesumin.cafe.exception.BusinessException;
+import com.leesumin.cafe.exception.ErrorResponse;
+import com.leesumin.cafe.exception.NotEnoughPointException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +17,8 @@ public class GlobalExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(NotEnoughPointException.class)
-    public ResponseEntity<ErrorResponse> notEnoughPointException(NotEnoughPointException e) {
-        logger.error(e.getError().getMessage());
+    public ResponseEntity<ErrorResponse> notEnoughPointException(BusinessException e) {
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(e));
     }
 }
