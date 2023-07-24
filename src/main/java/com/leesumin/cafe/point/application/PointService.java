@@ -1,6 +1,8 @@
 package com.leesumin.cafe.point.application;
 
 import com.leesumin.cafe.customer.domain.Customer;
+import com.leesumin.cafe.exception.ErrorEnum;
+import com.leesumin.cafe.exception.PointException;
 import com.leesumin.cafe.point.domain.Point;
 import com.leesumin.cafe.point.domain.PointRepository;
 import com.leesumin.cafe.point.interfaces.PointDto;
@@ -26,7 +28,7 @@ public class PointService {
 
     public PointDto find(Long customerId) {
         Point point = pointRepository.findByCustomerId(customerId)
-                .orElseThrow(() -> new IllegalStateException("해당 고객의 포인트 정보가 없습니다."));
+                .orElseThrow(() -> new PointException(ErrorEnum.NOT_FOUND_POINT));
         return PointDto.builder().id(point.getId())
                 .amount(point.getAmount())
                 .customerId(point.getCustomer().getId())
@@ -35,7 +37,7 @@ public class PointService {
 
     public Long chargePoint(Long customerId, Integer amount) {
         Point point = pointRepository.findByCustomerId(customerId)
-                .orElseThrow(() -> new IllegalStateException("해당 고객의 포인트 정보가 없습니다."));
+                .orElseThrow(() -> new PointException(ErrorEnum.NOT_FOUND_POINT));
         point.chargePoint(amount);
         pointRepository.save(point);
         return point.getId();
@@ -43,7 +45,7 @@ public class PointService {
 
     public Long usePoint(Long customerId, Integer amount) {
         Point point = pointRepository.findByCustomerId(customerId)
-                .orElseThrow(() -> new IllegalStateException("해당 고객의 포인트 정보가 없습니다."));
+                .orElseThrow(() -> new PointException(ErrorEnum.NOT_FOUND_POINT));
         point.usePoint(amount);
         pointRepository.save(point);
         return point.getId();

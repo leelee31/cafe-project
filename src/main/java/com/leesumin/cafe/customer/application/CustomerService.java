@@ -3,7 +3,8 @@ package com.leesumin.cafe.customer.application;
 import com.leesumin.cafe.customer.domain.Customer;
 import com.leesumin.cafe.customer.interfaces.CustomerDto;
 
-import com.leesumin.cafe.exception.CustomerNotFoundException;
+import com.leesumin.cafe.exception.CustomerException;
+import com.leesumin.cafe.exception.ErrorEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,8 @@ public class CustomerService {
     }
 
     public CustomerDto findByMobile(String mobile) {
-        Customer customer = customerRepository.findByMobile(mobile).orElseThrow(CustomerNotFoundException::new);
+        Customer customer = customerRepository.findByMobile(mobile)
+                .orElseThrow(() -> new CustomerException(ErrorEnum.NOT_FOUND_CUSTOMER));
         return CustomerDto.builder()
                 .id(customer.getId())
                 .mobile(customer.getMobile())

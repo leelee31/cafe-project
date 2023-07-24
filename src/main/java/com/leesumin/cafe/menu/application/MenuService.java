@@ -1,6 +1,7 @@
 package com.leesumin.cafe.menu.application;
 
-import com.leesumin.cafe.exception.EntityDuplicationException;
+import com.leesumin.cafe.exception.ErrorEnum;
+import com.leesumin.cafe.exception.MenuException;
 import com.leesumin.cafe.menu.interfaces.MenuDto;
 import com.leesumin.cafe.menu.domain.Menu;
 import com.leesumin.cafe.menu.domain.MenuRepository;
@@ -39,7 +40,8 @@ public class MenuService {
     }
 
     public MenuDto findMenuByName(String name) {
-        Menu menu = menuRepository.findByName(name).orElseThrow(() -> new IllegalStateException("해당 메뉴 정보가 없습니다")        );
+        Menu menu = menuRepository.findByName(name)
+                .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU));
         return MenuDto.builder()
                 .id(menu.getId())
                 .name(menu.getName())
@@ -48,7 +50,8 @@ public class MenuService {
     }
 
     public MenuDto findMenuById(Long id) {
-        Menu menu = menuRepository.findById(id).orElseThrow(() -> new IllegalStateException("해당 메뉴 정보가 없습니다")        );
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU));
         return MenuDto.builder()
                 .id(menu.getId())
                 .name(menu.getName())
@@ -57,9 +60,8 @@ public class MenuService {
     }
 
     private void validateDuplicate(String menuName) {
-        boolean isDuplicate = menuRepository.existsByName(menuName);
-        if (isDuplicate) {
-            throw new EntityDuplicationException("이미 존재하는 메뉴명입니다.");
+        if (menuRepository.existsByName(menuName)) {
+            throw new MenuException(ErrorEnum.EXISTS_MENU);
         }
     }
 }
