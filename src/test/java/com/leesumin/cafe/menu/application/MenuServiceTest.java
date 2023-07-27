@@ -1,6 +1,6 @@
 package com.leesumin.cafe.menu.application;
 
-import com.leesumin.cafe.exception.EntityDuplicationException;
+import com.leesumin.cafe.exception.MenuException;
 import com.leesumin.cafe.menu.interfaces.MenuDto;
 import com.leesumin.cafe.menu.domain.Menu;
 import com.leesumin.cafe.menu.domain.MenuRepository;
@@ -67,6 +67,6 @@ class MenuServiceTest {
         MenuDto dto = MenuDto.builder().name("라떼").price(6000).build();
 
         // then
-        assertThrows(EntityDuplicationException.class, () -> menuService.createMenu(dto));
+        assertThrows(MenuException.class, () -> menuService.createMenu(dto));
     }
 }

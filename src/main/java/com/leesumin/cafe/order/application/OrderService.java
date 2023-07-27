@@ -3,7 +3,9 @@ package com.leesumin.cafe.order.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.leesumin.cafe.customer.application.CustomerRepository;
 import com.leesumin.cafe.customer.domain.Customer;
-import com.leesumin.cafe.exception.CustomerNotFoundException;
+import com.leesumin.cafe.exception.CustomerException;
+import com.leesumin.cafe.exception.ErrorEnum;
+import com.leesumin.cafe.exception.MenuException;
 import com.leesumin.cafe.menu.domain.MenuRepository;
 import com.leesumin.cafe.order.domain.*;
 import com.leesumin.cafe.order.interfaces.OrderDto;
@@ -29,11 +31,13 @@ public class OrderService {
     private final OrderHistoryService orderHistoryService;
 
     public Long order(OrderDto orderDto) throws JsonProcessingException {
-        Customer customer = customerRepository.findById(orderDto.getCustomerId()).orElseThrow(CustomerNotFoundException::new);
+        Customer customer = customerRepository.findById(orderDto.getCustomerId())
+                .orElseThrow(() -> new CustomerException(ErrorEnum.NOT_FOUND_CUSTOMER));
 
         List<OrderItem> orderItems = orderDto.getOrderItems().stream()
                 .map(oid -> {
-                    Menu menu = menuRepository.findById(oid.getMenuId()).orElseThrow(IllegalStateException::new);
+                    Menu menu = menuRepository.findById(oid.getMenuId())
+                            .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU));
                     return OrderItem.builder()
                             .menu(menu)
                             .counts(oid.getCounts())

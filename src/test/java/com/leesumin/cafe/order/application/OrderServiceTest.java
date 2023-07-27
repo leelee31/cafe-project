@@ -6,7 +6,6 @@ import com.leesumin.cafe.customer.application.CustomerRepository;
 import com.leesumin.cafe.customer.domain.Customer;
 import com.leesumin.cafe.customer.interfaces.CustomerDto;
 import com.leesumin.cafe.menu.domain.MenuRepository;
-import com.leesumin.cafe.menu.interfaces.MenuDto;
 import com.leesumin.cafe.order.interfaces.OrderDto;
 import com.leesumin.cafe.order.interfaces.OrderItemDto;
 import com.leesumin.cafe.menu.domain.Menu;
@@ -95,7 +94,8 @@ class OrderServiceTest {
 
         // when
         Long orderId = orderService.order(orderDto);
-        Order findOrder = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Order findOrder = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
 
         // then
         assertThat(findOrder.getTotalPrice()).isEqualTo(price1 * counts1 + price2 * counts2);

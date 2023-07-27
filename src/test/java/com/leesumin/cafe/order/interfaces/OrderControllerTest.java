@@ -8,7 +8,6 @@ import com.leesumin.cafe.menu.application.MenuService;
 import com.leesumin.cafe.menu.interfaces.MenuDto;
 import com.leesumin.cafe.point.application.PointService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -86,8 +85,7 @@ class OrderControllerTest extends IntegrationTest {
     }
 
     @Test
-    @DisplayName("포인트부족_예외처리")
-    void notEnoughPointException_Handler() throws Exception {
+    void REJECT_USE_POINT_EXCEPTION() throws Exception {
         // given
         OrderItemDto orderItemDto = OrderItemDto.builder()
                 .menuId(menuList.get(2).getId())
@@ -100,13 +98,15 @@ class OrderControllerTest extends IntegrationTest {
                 .orderItems(orderItemDtoList)
                 .build();
 
-        // then
+        //when
         ResultActions ra = mvc.perform(post("/order")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(orderDto)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("errorCode").value(401))
-                .andExpect(jsonPath("errorMessage").value("포인트가 부족하여 결제에 실패했습니다."))
                 .andDo(print());
+
+        // then
+        ra.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("errorCode").value(401))
+                .andExpect(jsonPath("errorMessage").value("포인트가 부족하여 결제에 실패했습니다."));
     }
 }

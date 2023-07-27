@@ -58,4 +58,15 @@ class MenuControllerTest extends IntegrationTest {
                 .andExpect(jsonPath("$.name").value("초코라떼"))
                 .andExpect(jsonPath("$.price").value(5000));
     }
+
+    @Test
+    void NOT_FOUND_MENU_EXCEPTION() throws Exception {
+        // when
+        ResultActions ra = mvc.perform(get("/menu/{name}", "바닐라라떼")).andDo(print());
+
+        // then
+        ra.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("errorCode").value(501))
+                .andExpect(jsonPath("errorMessage").value("해당 메뉴 정보가 없습니다"));
+    }
 }

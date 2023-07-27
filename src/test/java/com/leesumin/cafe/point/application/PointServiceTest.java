@@ -1,6 +1,8 @@
 package com.leesumin.cafe.point.application;
 
 import com.leesumin.cafe.customer.domain.Customer;
+import com.leesumin.cafe.exception.ErrorEnum;
+import com.leesumin.cafe.exception.PointException;
 import com.leesumin.cafe.point.domain.Point;
 import com.leesumin.cafe.point.domain.PointRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +34,8 @@ class PointServiceTest {
         // when
         Integer chargeAmount = 20000;
         pointService.chargePoint(1L, chargeAmount);
-        Point findPoint = pointRepository.findByCustomerId(1L).orElseThrow(() -> new IllegalStateException("해당 회원 정보가 없습니다."));
+        Point findPoint = pointRepository.findByCustomerId(1L)
+                .orElseThrow(() -> new PointException(ErrorEnum.NOT_FOUND_POINT));
 
         // then
         assertThat(findPoint.getAmount()).isEqualTo(initPoint + chargeAmount);
@@ -49,7 +52,8 @@ class PointServiceTest {
         // when
         Integer useAmount = 10000;
         pointService.usePoint(1L, useAmount);
-        Point findPoint = pointRepository.findByCustomerId(1L).orElseThrow(() -> new IllegalStateException("해당 회원 정보가 없습니다."));
+        Point findPoint = pointRepository.findByCustomerId(1L)
+                .orElseThrow(() -> new PointException(ErrorEnum.NOT_FOUND_POINT));
 
         // then
         assertThat(findPoint.getAmount()).isEqualTo(initPoint - useAmount);
