@@ -64,7 +64,7 @@ class MenuServiceTest {
         given(menuRepository.existsByName(mockMenu.getName())).willReturn(true);
 
         // when
-        MenuDto dto = MenuDto.builder().name("라떼").price(6000).build();
+        MenuDto dto = new MenuDto("라떼", 6000);
 
         // then
         assertThrows(MenuException.class, () -> menuService.createMenu(dto));

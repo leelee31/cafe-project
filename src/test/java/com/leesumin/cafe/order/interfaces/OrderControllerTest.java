@@ -39,9 +39,9 @@ class OrderControllerTest extends IntegrationTest {
         pointService.createPoint(customer.getId(), 1000000);
 
          // 메뉴
-        menuService.createMenu(MenuDto.builder().name("아이스아메리카노").price(2000).build());
-        menuService.createMenu(MenuDto.builder().name("초코라떼").price(5000).build());
-        menuService.createMenu(MenuDto.builder().name("자몽아이스티").price(6000).build());
+        menuService.createMenu(new MenuDto("아이스 아메리카노", 2000));
+        menuService.createMenu(new MenuDto("녹차라떼", 5000));
+        menuService.createMenu(new MenuDto("레몬아이스티", 6000));
         menuList = menuService.findAllMenu();
 
         // 주문

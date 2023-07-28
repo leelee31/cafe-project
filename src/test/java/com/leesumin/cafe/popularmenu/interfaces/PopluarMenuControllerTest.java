@@ -42,11 +42,11 @@ class PopularMenuControllerTest extends IntegrationTest {
         pointService.createPoint(customerDto.getId(), 1000000000);
 
         // 메뉴 생성
-        menuService.createMenu(MenuDto.builder().name("아이스 아메리카노").price(2000).build());
-        menuService.createMenu(MenuDto.builder().name("녹차라떼").price(5000).build());
-        menuService.createMenu(MenuDto.builder().name("레몬아이스티").price(6000).build());
-        menuService.createMenu(MenuDto.builder().name("바닐라라떼").price(4000).build());
-        menuService.createMenu(MenuDto.builder().name("아인슈페너").price(5500).build());
+        menuService.createMenu(new MenuDto("아이스 아메리카노", 2000));
+        menuService.createMenu(new MenuDto("녹차라떼", 5000));
+        menuService.createMenu(new MenuDto("레몬아이스티", 6000));
+        menuService.createMenu(new MenuDto("바닐라라떼", 4000));
+        menuService.createMenu(new MenuDto("아인슈페너", 5500));
 
         // 주문
         List<MenuDto> menuList = menuService.findAllMenu();

@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Transactional
 @RequiredArgsConstructor
@@ -31,32 +32,20 @@ public class MenuService {
     public List<MenuDto> findAllMenu() {
         List<Menu> menus = menuRepository.findAll();
         return menus.stream()
-                .map(m -> MenuDto.builder()
-                    .id(m.getId())
-                    .name(m.getName())
-                    .price(m.getPrice())
-                    .build())
-                .collect(Collectors.toList());
+                .map(MenuDto::new)
+                .collect(toList());
     }
 
     public MenuDto findMenuByName(String name) {
         Menu menu = menuRepository.findByName(name)
                 .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU));
-        return MenuDto.builder()
-                .id(menu.getId())
-                .name(menu.getName())
-                .price(menu.getPrice())
-                .build();
+        return new MenuDto(menu);
     }
 
     public MenuDto findMenuById(Long id) {
         Menu menu = menuRepository.findById(id)
                 .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU));
-        return MenuDto.builder()
-                .id(menu.getId())
-                .name(menu.getName())
-                .price(menu.getPrice())
-                .build();
+        return new MenuDto(menu);
     }
 
     private void validateDuplicate(String menuName) {

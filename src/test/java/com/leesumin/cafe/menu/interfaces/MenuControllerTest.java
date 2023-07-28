@@ -20,14 +20,14 @@ class MenuControllerTest extends IntegrationTest {
 
     @BeforeEach
     void setUp() {
-        menuService.createMenu(MenuDto.builder().name("아이스아메리카노").price(2000).build());
-        menuService.createMenu(MenuDto.builder().name("초코라떼").price(5000).build());
+        menuService.createMenu(new MenuDto("아이스아메리카노", 2000));
+        menuService.createMenu(new MenuDto("초코라떼", 5000));
     }
 
     @Test
     void saveMenu() throws Exception {
         // given
-        MenuDto menuDto = MenuDto.builder().name("자몽아이스티").price(6000).build();
+        MenuDto menuDto = new MenuDto("자몽아이스티", 6000);
 
         //when
         ResultActions ra = mvc.perform(post("/menu")
