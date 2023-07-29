@@ -46,7 +46,7 @@ class OrderHistoryServiceTest {
         OrderDto mockOrder = OrderDto.builder()
                 .customerId(customer.getId())
                 .customerMobile(customer.getMobile())
-                .orderItems(orderItems)
+                .orderItemDtos(orderItems)
                 .build();
         List<ProducerRecord<String, String>> historyResponse = orderHistoryService.send(mockOrder);
 
@@ -55,5 +55,4 @@ class OrderHistoryServiceTest {
                 () -> assertTrue(historyResponse.get(0).key().equalsIgnoreCase("OrderHistoryMessage"))
         );
     }
-
 }

@@ -1,6 +1,5 @@
 package com.leesumin.cafe.popularmenu.interfaces;
 
-import com.leesumin.cafe.order.interfaces.OrderItemDto;
 import com.leesumin.cafe.popularmenu.application.PopularMenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

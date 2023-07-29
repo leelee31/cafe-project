@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 @Transactional
 @RequiredArgsConstructor
@@ -34,16 +34,16 @@ public class OrderService {
         Customer customer = customerRepository.findById(orderDto.getCustomerId())
                 .orElseThrow(() -> new CustomerException(ErrorEnum.NOT_FOUND_CUSTOMER));
 
-        List<OrderItem> orderItems = orderDto.getOrderItems().stream()
+        List<Menu> menus = menuRepository.findAll();
+        List<OrderItem> orderItems = orderDto.getOrderItemDtos().stream()
                 .map(oid -> {
-                    Menu menu = menuRepository.findById(oid.getMenuId())
-                            .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU));
-                    return OrderItem.builder()
-                            .menu(menu)
-                            .counts(oid.getCounts())
-                            .build();
+                    Menu menu = menus.stream()
+                            .filter(m -> m.getId().equals(oid.getMenuId()))
+                            .findAny()
+                            .orElseThrow(() -> new MenuException(ErrorEnum.NOT_FOUND_MENU, oid.getMenuId()));
+                    return oid.toEntity(menu);
                 })
-                .collect(Collectors.toList());
+                .collect(toList());
 
         Order order = Order.createOrder(customer, orderItems);
 
@@ -54,7 +54,7 @@ public class OrderService {
         pointService.usePoint(customer.getId(), order.getTotalPrice());
 
         // 주문 내역 발송
-        OrderDto orderDtoToSend = OrderDto.OrderToDto(order);
+        OrderDto orderDtoToSend = new OrderDto(order);
         List<ProducerRecord<String, String>> orderHistory = orderHistoryService.send(orderDtoToSend);
 
         return order.getId();

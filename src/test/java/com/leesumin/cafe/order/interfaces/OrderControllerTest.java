@@ -48,17 +48,14 @@ class OrderControllerTest extends IntegrationTest {
         orderItemDtoList = new ArrayList<>();
         OrderItemDto orderItemDto1 = OrderItemDto.builder()
                 .menuId(menuList.get(0).getId())
-                .menuName(menuList.get(0).getName())
                 .counts(10)
                 .build();
         OrderItemDto orderItemDto2 = OrderItemDto.builder()
                 .menuId(menuList.get(1).getId())
-                .menuName(menuList.get(1).getName())
                 .counts(10)
                 .build();
         OrderItemDto orderItemDto3 = OrderItemDto.builder()
                 .menuId(menuList.get(2).getId())
-                .menuName(menuList.get(2).getName())
                 .counts(10)
                 .build();
         orderItemDtoList.add(orderItemDto1);
@@ -71,7 +68,7 @@ class OrderControllerTest extends IntegrationTest {
         // given
         OrderDto orderDto = OrderDto.builder()
                 .customerId(customer.getId())
-                .orderItems(orderItemDtoList)
+                .orderItemDtos(orderItemDtoList)
                 .build();
 
         // when
@@ -85,17 +82,42 @@ class OrderControllerTest extends IntegrationTest {
     }
 
     @Test
-    void REJECT_USE_POINT_EXCEPTION() throws Exception {
+    void NOT_FOUND_MENU_EXCEPTION() throws Exception {
         // given
         OrderItemDto orderItemDto = OrderItemDto.builder()
-                .menuId(menuList.get(2).getId())
-                .menuName(menuList.get(2).getName())
+                .menuId(1000L)
                 .counts(1000)
                 .build();
         orderItemDtoList.add(orderItemDto);
         OrderDto orderDto = OrderDto.builder()
                 .customerId(customer.getId())
-                .orderItems(orderItemDtoList)
+                .orderItemDtos(orderItemDtoList)
+                .build();
+
+        // when
+        ResultActions ra = mvc.perform(post("/order")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(orderDto)))
+                .andDo(print());
+
+        // then
+        ra.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("errorCode").value(501))
+                .andExpect(jsonPath("errorMessage").value("메뉴 정보가 없습니다."));
+    }
+
+
+    @Test
+    void REJECT_USE_POINT_EXCEPTION() throws Exception {
+        // given
+        OrderItemDto orderItemDto = OrderItemDto.builder()
+                .menuId(menuList.get(2).getId())
+                .counts(1000)
+                .build();
+        orderItemDtoList.add(orderItemDto);
+        OrderDto orderDto = OrderDto.builder()
+                .customerId(customer.getId())
+                .orderItemDtos(orderItemDtoList)
                 .build();
 
         //when

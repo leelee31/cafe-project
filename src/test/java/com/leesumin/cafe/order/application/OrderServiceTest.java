@@ -65,7 +65,7 @@ class OrderServiceTest {
         OrderItemDto oid2 = OrderItemDto.builder().menuName("자몽허니블랙티").menuPrice(price2).counts(counts2).build();
         orderItemDtos.add(oid1);
         orderItemDtos.add(oid2);
-        orderDto = OrderDto.builder().customerMobile(customerDto.getMobile()).orderItems(orderItemDtos).build();
+        orderDto = OrderDto.builder().customerMobile(customerDto.getMobile()).orderItemDtos(orderItemDtos).build();
 
         Menu menu1 = Menu.builder().name("아메리카노").price(price1).build();
         Menu menu2 = Menu.builder().name("자몽허니블랙티").price(price2).build();

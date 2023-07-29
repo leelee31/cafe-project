@@ -21,7 +21,7 @@ public class OrderHistoryService {
     public List<ProducerRecord<String, String>> send(OrderDto order) throws JsonProcessingException {
         OrderHistoryMessage message = OrderHistoryMessage.builder()
                 .customerId(order.getCustomerId())
-                .orderItemDtos(order.getOrderItems())
+                .orderItemDtos(order.getOrderItemDtos())
                 .totalPrice(order.getTotalPrice())
                 .orderDateTime(order.getOrderDateTime())
                 .build();

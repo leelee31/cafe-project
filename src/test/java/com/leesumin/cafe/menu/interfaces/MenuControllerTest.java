@@ -67,6 +67,6 @@ class MenuControllerTest extends IntegrationTest {
         // then
         ra.andExpect(status().isBadRequest())
                 .andExpect(jsonPath("errorCode").value(501))
-                .andExpect(jsonPath("errorMessage").value("해당 메뉴 정보가 없습니다"));
+                .andExpect(jsonPath("errorMessage").value("메뉴 정보가 없습니다."));
     }
 }

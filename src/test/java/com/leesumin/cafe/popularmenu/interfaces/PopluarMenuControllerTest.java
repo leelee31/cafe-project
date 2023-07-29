@@ -54,32 +54,26 @@ class PopularMenuControllerTest extends IntegrationTest {
         List<OrderItemDto> orderItemDtoList = new ArrayList<>();
         OrderItemDto orderItemDto1 = OrderItemDto.builder()
                 .menuId(menuList.get(0).getId())
-                .menuName(menuList.get(0).getName())
                 .counts(10)
                 .build();
         OrderItemDto orderItemDto2 = OrderItemDto.builder()
                 .menuId(menuList.get(3).getId())
-                .menuName(menuList.get(3).getName())
                 .counts(1)
                 .build();
         OrderItemDto orderItemDto3 = OrderItemDto.builder()
                 .menuId(menuList.get(4).getId())
-                .menuName(menuList.get(4).getName())
                 .counts(1000)
                 .build();
         OrderItemDto orderItemDto4 = OrderItemDto.builder()
                 .menuId(menuList.get(3).getId())
-                .menuName(menuList.get(3).getName())
                 .counts(9998)
                 .build();
         OrderItemDto orderItemDto5 = OrderItemDto.builder()
                 .menuId(menuList.get(4).getId())
-                .menuName(menuList.get(4).getName())
                 .counts(7)
                 .build();
         OrderItemDto orderItemDto6 = OrderItemDto.builder()
                 .menuId(menuList.get(2).getId())
-                .menuName(menuList.get(2).getName())
                 .counts(9)
                 .build();
         orderItemDtoList.add(orderItemDto1);
@@ -92,7 +86,7 @@ class PopularMenuControllerTest extends IntegrationTest {
         orderService.order(OrderDto.builder()
                 .customerId(customerDto.getId())
                 .customerMobile(customerDto.getMobile())
-                .orderItems(orderItemDtoList)
+                .orderItemDtos(orderItemDtoList)
                 .build());
     }
 
