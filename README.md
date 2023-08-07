@@ -18,8 +18,9 @@
 * h2 Database
 * Gradle
 * JPA
-* JUnit5
-* kafka-clients
+* JUnit 5
+* kafka-clients + MockProducer
+* Redis 2.7.0 + Lettuce 6.1.8
 <br/>
 
 ## 서비스 설명
