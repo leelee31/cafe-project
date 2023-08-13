@@ -1,6 +1,5 @@
 package com.leesumin.cafe.popularmenu.interfaces;
 
-import com.leesumin.cafe.order.interfaces.OrderItemDto;
 import com.leesumin.cafe.popularmenu.application.PopularMenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class PopularMenuController {
         LocalDateTime startDateTime = LocalDateTime.parse(sdt, format);
         LocalDateTime endDateTime = LocalDateTime.parse(edt, format);
 
-        List<PopularMenuDto> menus = popularMenuService.findPopularMenu(topN, startDateTime, endDateTime);
+        List<PopularMenuDto> menus = popularMenuService.findPopularMenu(topN, endDateTime);
         return ResponseEntity.ok(menus);
     }
 }

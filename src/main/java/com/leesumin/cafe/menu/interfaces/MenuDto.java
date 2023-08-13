@@ -1,12 +1,13 @@
 package com.leesumin.cafe.menu.interfaces;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Data
 public class MenuDto {
-    private final Long id;
-    private final String name;
-    private final Integer price;
+    private Long id;
+    private String name;
+    private Integer price;
 }
